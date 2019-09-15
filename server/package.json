@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Back-end Project for Bits of Good - Medshare Project Team",
+  "private": true,
+  "scripts": {
+    "test": "test",
+    "start": "node ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GTBitsOfGood/Medshare"
+  },
+  "author": "Medshare Project Team",
+  "license": "ISC",
+  "dependencies": {
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "http": "0.0.0",
+    "nodemon": "^1.19.2",
+    "path": "^0.12.7"
+  }
+}
