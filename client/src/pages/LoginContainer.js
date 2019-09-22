@@ -4,6 +4,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
+import Signup from "../components/Signup"
 
 //actions here
 //import
@@ -26,9 +27,7 @@ class LoginContainer extends React.Component{
 
     render(){
         return (
-            <form>
-                <span>nothing here yet</span>
-            </form>
+            <Signup />
         )
     }
 }
