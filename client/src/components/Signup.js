@@ -2,6 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 
+
 const Wrapper = styled.section`
         margin: 4em auto;
         padding-bottom: 1em;
@@ -23,7 +24,7 @@ const Input = styled.input`
         background-color: #bdd8f2;
         border: none;
         border-radius: 5px;
-        color: white;
+        color: black;
         padding: 2px 5px;
         text-decoration: none;
         &:focus {
@@ -50,25 +51,24 @@ const Button = styled.button`
     `;
 
 class Signup extends React.Component{
-    constructor(props){
-        super(props);
-    }
 
     render(){
         return (
             <Wrapper>
                 <Title>Sign Up</Title>
-                <form autocomplete="off">
+                <form autoComplete="off">
                         <Label>Email</Label>
-                        <Input type="text" placeholder="Enter email addres" name="email" onChange={null} />
+                        <Input type="text" placeholder="Enter email address" name="email" onChange={this.props.handleInputChange} />
                         <Label>Username</Label>
-                        <Input type="text" placeholder="Enter username" name="userName" onChange={null} />
+                        <Input type="text" placeholder="Enter username" name="username" onChange={this.props.handleInputChange} />
                         <Label>Password</Label>
-                        <Input type="password" placeholder="Enter password" name="password" onChange={null}/>
+                        <Input type="password" placeholder="Enter password" name="password" onChange={this.props.handleInputChange}/>
                         <Label>Confirm Password</Label>
-                        <Input id="confirmPassword" type="password" placeholder="Confirm your password" name="confirmPassword" onChange={null}/>
-                    <Button onClick={null}>Sign Up</Button>
-                    <Button onClick={null}>Have an account already? Sign in here.</Button>
+                        <Input id="confirmPassword" type="password" placeholder="Confirm your password" name="confirmPassword" onChange={this.props.handleInputChange}/>
+                    <Button onClick={this.props.handleSubmit}>Sign Up</Button>
+                    <Button onClick={_ => {
+                        this.props.switchComponent("Login");
+                    }}>Have an account already? Sign in here.</Button>
                 </form>
             </Wrapper>
         )

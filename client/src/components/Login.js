@@ -23,7 +23,7 @@ const Input = styled.input`
         background-color: #bdd8f2;
         border: none;
         border-radius: 5px;
-        color: white;
+        color: black;
         padding: 2px 5px;
         text-decoration: none;
         &:focus {
@@ -50,22 +50,21 @@ const Button = styled.button`
     `;
 
 class Login extends React.Component{
-    constructor(props){
-        super(props);
-    }
 
 
     render(){
         return (
             <Wrapper>
                 <Title>Login</Title>
-                <form autocomplete="off">
-                    <Label>Email</Label>
-                    <Input type="text" placeholder="Enter email addres" name="email" onChange={null} />
+                <form autoComplete="off">
+                    <Label>Username</Label>
+                    <Input type="text" placeholder="Enter username" name="username" onChange={this.props.handleInputChange} />
                     <Label>Password</Label>
-                    <Input type="password" placeholder="Enter password" name="password" onChange={null}/>
-                    <Button onClick={null}>Login</Button>
-                    <Button onClick={null}>Don't have an account? Sign up here.</Button>
+                    <Input type="password" placeholder="Enter password" name="password" onChange={this.props.handleInputChange}/>
+                    <Button onClick={this.props.handleLogin}>Login</Button>
+                    <Button onClick={_ => {
+                        this.props.switchComponent("SignUp")
+                    }}>Don't have an account? Sign up here.</Button>
                 </form>
             </Wrapper>
         )
