@@ -54,15 +54,15 @@ class LoginSignupContainer extends React.Component{
                 error_msg: "Empty Username!"
             });
         } else {
-            axios.post("/login", user)
-                .then(res => {
-                    if(res.data.error){
+            this.props.performLogin(user)
+                .then(_ => {
+                    if(this.props.login_response.error){
                         this.setState({
-                            error_type: res.data.error_type,
-                            error_msg: res.data.error_msg
+                            error_type: this.props.login_response.error_type,
+                            error_msg: this.props.login_response.error_msg
                         });
                     } else {
-                        localStorage.setItem("token", res.data.token);
+                        localStorage.setItem("token", this.props.login_response.token);
                         console.log("Login Success!")
                     }
                 })
@@ -105,12 +105,12 @@ class LoginSignupContainer extends React.Component{
             });
         }
         else {
-            axios.post("/register", user)
-                .then(res => {
-                    if(res.data.error){
+            this.props.performSignup(user)
+                .then(_ => {
+                    if(this.props.signup_response.error){
                         this.setState({
-                            error_type: res.data.error_type,
-                            error_msg: res.data.error_msg
+                            error_type: this.props.signup_response.error_type,
+                            error_msg: this.props.signup_response.error_msg
                         });
                     }
                     else {
