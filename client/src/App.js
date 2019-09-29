@@ -9,7 +9,7 @@ function App() {
   return (
       <BrowserRouter>
         <Switch>
-            {/*temporary rendering / route to login/signup page; will render search engine later*/}
+            /*temporary rendering / route to login/signup page; will render search engine later*/
             <Route path="/" render={(props) => <LoginSignupContainer {...props} />}  />
             <Route path="/account" render={(props) => <LoginSignupContainer {...props} />} />
         </Switch>
