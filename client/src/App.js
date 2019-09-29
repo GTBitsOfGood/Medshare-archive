@@ -3,13 +3,15 @@ import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
-import Login from "./pages/LoginContainer.js"
+import LoginSignupContainer from "./pages/LoginSignupContainer.js"
 
 function App() {
   return (
       <BrowserRouter>
         <Switch>
-          <Route path="/" render={(props) => <Login {...props} />} />
+            {/*temporary rendering / route to login/signup page; will render search engine later*/}
+            <Route path="/" render={(props) => <LoginSignupContainer {...props} />}  />
+            <Route path="/account" render={(props) => <LoginSignupContainer {...props} />} />
         </Switch>
       </BrowserRouter>
   );

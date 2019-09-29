@@ -15,7 +15,7 @@ const mapDispatchAsProps = dispatch => {
     }
 }
 
-class LoginContainer extends React.Component{
+class LoginSignupContainer extends React.Component{
     constructor(props){
         super(props);
 
@@ -32,4 +32,4 @@ class LoginContainer extends React.Component{
     }
 }
 
-export default withRouter(connect(null, mapDispatchAsProps)(LoginContainer));
+export default withRouter(connect(null, mapDispatchAsProps)(LoginSignupContainer));
