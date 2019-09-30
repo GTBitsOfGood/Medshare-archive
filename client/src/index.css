@@ -11,3 +11,47 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+/*
+  ITEM LABEL
+*/
+
+.item-label,
+.item-label-main {
+  display: flex;
+}
+
+.item-label {
+  flex-direction: column;
+  padding: 20px;
+  margin: 20px;
+  outline: black 3px solid;
+  width: 520px;
+}
+
+.item-label-main > div, 
+.item-label-extra > div {
+  margin: 10px;
+}
+
+.item-label-main img {
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+  border: 2px black solid;
+}
+
+.item-label-name {
+  font-size: 2rem;
+  font-weight: bold;
+  border-bottom: black dotted 2px;
+}
+
+.item-label-header {
+  font-weight: bold;
+}
+
+.item-label-details th, .item-label-details td {
+  text-align: left;
+  padding: 4px;
+}
