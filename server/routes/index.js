@@ -10,16 +10,16 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET search from query */
-router.get('/search', (req, res, next) => {
+router.get('/search', async (req, res, next) => {
   const q = req.query.q;
   const query_fuzzy = {$regex: new RegExp(q, 'i')};
-  Product.find().or([{ProductName: query_fuzzy}, {'Category Name': query_fuzzy}, {'Sub Category': query_fuzzy}])
-      .then(products => {
-        return res.send(products);
-      })
-      .catch(err => {
-        return next(err);
-      })
+  let products = null;
+  try {
+    products = await Product.find().or([{ProductName: query_fuzzy}, {'Category Name': query_fuzzy}, {'Sub Category': query_fuzzy}]);
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+  res.send(products);
 });
 
 module.exports = router;
