@@ -1,20 +1,14 @@
 
 import React from "react";
-import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
 import Signup from "../components/Signup"
 import Login from "../components/Login"
 
-//actions here
-//import
+import performLogin from "../actions/performLogin";
+import performSignup from "../actions/performSignup";
 
-const mapDispatchAsProps = dispatch => {
-    return {
-
-    }
-}
 
 class LoginSignupContainer extends React.Component{
     constructor(props){
@@ -27,13 +21,13 @@ class LoginSignupContainer extends React.Component{
             password: "",
             confirmPassword: "",
             error_type: undefined,
-            error_msg: ""
-        }
+            error_msg: "",
+        };
         this.switch = this.switch.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmit = this.handleSubmit(this);
-        this.handleLogin = this.handleLogin(this);
-        this.validateEmail = this.validateEmail(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
+        this.validateEmail = this.validateEmail.bind(this);
     }
 
     validateEmail(email) {
@@ -42,11 +36,13 @@ class LoginSignupContainer extends React.Component{
     }
 
     handleLogin(e){
+        if (e)
+            e.preventDefault();
 
         const user = {
             Name: this.state.username,
             Password: this.state.password
-        }
+        };
 
         if (!user.Name.replace(/\s/g, "").length) {
             this.setState({
@@ -73,10 +69,12 @@ class LoginSignupContainer extends React.Component{
     }
 
     handleSubmit(e) {
+        if (e)
+            e.preventDefault();
 
         const user = {
             Email: this.state.email,
-            Name: this.state.userName,
+            Name: this.state.username,
             Password: this.state.password
         }
 
@@ -89,13 +87,13 @@ class LoginSignupContainer extends React.Component{
         else if(!user.Name.replace(/\s/g, "").length) {
             this.setState({
                 error_type: "username",
-                error_msg: "Username Empty!"
+                error_msg: "Username empty!"
             })
         }
         else if (user.Password.replace(/\s/g, "").length < 6) {
             this.setState({
                 error_type: "password",
-                error_msg: "Password is too short; minimum length is 6"
+                error_msg: "Password is too short; minimum length is 6."
             });
         }
         else if(user.Password !== this.state.confirmPassword){
@@ -114,7 +112,9 @@ class LoginSignupContainer extends React.Component{
                         });
                     }
                     else {
-                        this.props.switchComponent("Login");
+                        this.setState({
+                            displayTable: "Login"
+                        });
                     }
                 })
                 .catch(err => {
@@ -142,9 +142,9 @@ class LoginSignupContainer extends React.Component{
 
     render(){
         const components = {
-            "SignUp": <Signup switchComponent = {this.switch} handleInputChange = {this.handleInputChange} handleSubmit = {this.handleSubmit} validateEmail = {this.validateEmail}/>,
-            "Login": <Login switchComponent = {this.switch} handleInputChange = {this.handleInputChange} handleSubmit = {this.handleSubmit} validateEmail = {this.validateEmail}/>
-        }
+            "SignUp": <Signup switchComponent = {this.switch} handleInputChange = {this.handleInputChange} handleSubmit = {this.handleSubmit} validateEmail = {this.validateEmail} errorType = {this.state.error_type} errorMessage = {this.state.error_msg}/>,
+            "Login": <Login switchComponent = {this.switch} handleInputChange = {this.handleInputChange} handleLogin = {this.handleLogin} validateEmail = {this.validateEmail} errorType = {this.state.error_type} errorMessage = {this.state.error_msg}/>
+        };
         return (
             <div>
             {components[this.state.displayTable]}
@@ -153,4 +153,18 @@ class LoginSignupContainer extends React.Component{
     }
 }
 
-export default withRouter(connect(null, mapDispatchAsProps)(LoginSignupContainer));
+const mapStateToProps = (state) => {
+    return {
+        signup_response: state.AccountReducer.signup_response,
+        login_response: state.AccountReducer.login_response,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        performSignup: (payload) => dispatch(performSignup(payload)),
+        performLogin: (payload) => dispatch(performLogin(payload)),
+    };
+};
+
+export default withRouter(connect( mapStateToProps, mapDispatchToProps)(LoginSignupContainer));

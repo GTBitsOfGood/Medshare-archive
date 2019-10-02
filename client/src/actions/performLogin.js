@@ -1,5 +1,6 @@
 import types from './AccountActionTypes';
 import axios from 'axios';
+import { url } from '../helpers/helperURL';
 export function loginSuccess(response) {
     return (dispatch) => {
         dispatch({ payload: response, type: types.HANDLE_LOGIN_RESPONSE });
@@ -8,7 +9,7 @@ export function loginSuccess(response) {
 const performLogin = (payload) => {
     return (dispatch) => {
         return axios
-            .post('/login', payload)
+            .post(url + '/user/login', payload)
             .then((response) => dispatch(loginSuccess(response.data)));
     };
 };

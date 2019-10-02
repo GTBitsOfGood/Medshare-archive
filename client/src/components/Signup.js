@@ -50,6 +50,12 @@ const Button = styled.button`
         cursor: pointer;
     `;
 
+const Error = styled.span`
+        color: red;
+        font-size: 14px;
+        display: block;
+    `;
+
 class Signup extends React.Component{
 
     render(){
@@ -65,6 +71,7 @@ class Signup extends React.Component{
                         <Input type="password" placeholder="Enter password" name="password" onChange={this.props.handleInputChange}/>
                         <Label>Confirm Password</Label>
                         <Input id="confirmPassword" type="password" placeholder="Confirm your password" name="confirmPassword" onChange={this.props.handleInputChange}/>
+                    <Error> {this.props.errorMessage !== "" ?("Error in " + this.props.errorType + " field: " +  this.props.errorMessage):null}</Error>
                     <Button onClick={this.props.handleSubmit}>Sign Up</Button>
                     <Button onClick={_ => {
                         this.props.switchComponent("Login");

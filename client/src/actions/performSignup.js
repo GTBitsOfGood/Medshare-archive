@@ -1,13 +1,16 @@
-import types from './action_types';
+import types from './AccountActionTypes';
+import axios from 'axios';
+import { url } from '../helpers/helperURL';
 export function signUpSuccess(response) {
     return (dispatch) => {
         dispatch({ payload: response, type: types.HANDLE_SIGNUP_RESPONSE });
     };
 }
 const performSignup = (payload) => {
+    console.log("perfroming signup");
     return (dispatch) => {
-        return axiosInstance
-            .post('/register', payload)
+        return axios
+            .post(url + '/user/register', payload)
             .then((response) => dispatch(signUpSuccess(response.data)));
     };
 };
