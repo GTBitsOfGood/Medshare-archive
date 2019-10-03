@@ -1,24 +1,24 @@
 import types from '../actions/AccountActionTypes';
 
 const initialState = {
-    signup_response: null,
-    login_reponse: null
+  signupResponse: null,
+  loginReponse: null,
 };
 
 export default function AccountReducer(state = initialState, action) {
-    switch (action.type) {
-        case types.HANDLE_SIGNUP_RESPONSE:
-            return {
-                ...state,
-                signup_response: action.payload,
-            };
+  switch (action.type) {
+    case types.HANDLE_SIGNUP_RESPONSE:
+      return {
+        ...state,
+        signupResponse: action.payload,
+      };
 
-        case types.HANDLE_LOGIN_RESPONSE:
-            return {
-                ...state,
-                login_response: action.payload,
-            };
-        default:
-            return state;
-    }
+    case types.HANDLE_LOGIN_RESPONSE:
+      return {
+        ...state,
+        loginResponse: action.payload,
+      };
+    default:
+      return state;
+  }
 }

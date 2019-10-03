@@ -27,7 +27,7 @@ const generateUserObject = user => {
 
 const VALIDATE_EMAIL = email => {
   // eslint-disable-next-line max-len
-  const REGEX = /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const REGEX = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
   return REGEX.test(email.toLowerCase());
 };
 
@@ -48,8 +48,8 @@ class UserController {
         } else if (user) {
           res.json({
             error: true,
-            error_msg: 'Email address is already in use.',
-            error_type: 'email',
+            errorMsg: 'Email address is already in use.',
+            errorType: 'email',
           });
         } else {
           BCRYPT.hash(registerData.Password, saltRounds, (error, hash) => {
@@ -83,8 +83,8 @@ class UserController {
       console.error('Email address format incorrect');
       res.json({
         error: true,
-        error_msg: 'No email address entered!',
-        error_type: 'email',
+        errorMsg: 'No email address entered!',
+        errorType: 'email',
       });
     }
   }
@@ -105,8 +105,8 @@ class UserController {
             console.error('Password entered is incorrect!');
             res.json({
               error: true,
-              error_msg: 'Password entered is incorrect!',
-              error_type: 'password',
+              errorMsg: 'Password entered is incorrect!',
+              errorType: 'password',
             });
           }
         });
@@ -114,8 +114,8 @@ class UserController {
         console.error('Username not found on DB');
         res.json({
           error: true,
-          error_msg: 'Username not found!',
-          error_type: 'username',
+          errorMsg: 'Username not found!',
+          errorType: 'username',
         });
       }
     });
