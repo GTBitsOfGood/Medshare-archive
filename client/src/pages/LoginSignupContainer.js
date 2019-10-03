@@ -38,7 +38,7 @@ class LoginSignupContainer extends React.Component {
     if (e) e.preventDefault();
 
     const { username, password } = this.state;
-    const { performLoginAction } = this.props;
+    const { performLoginAction, history } = this.props;
 
     const user = {
       Name: username,
@@ -62,6 +62,7 @@ class LoginSignupContainer extends React.Component {
           } else {
             localStorage.setItem('token', loginResponse.token);
             console.log('Login Success!');
+            history.push(`/account_portal`);
           }
         })
         .catch(err => {
@@ -202,6 +203,9 @@ LoginSignupContainer.propTypes = {
     errorMsg: PropTypes.string,
     errorType: PropTypes.string,
   }),
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 export default withRouter(
