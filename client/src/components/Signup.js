@@ -96,6 +96,14 @@ const Signup = props => {
           name="confirmPassword"
           onChange={handleInputChange}
         />
+        <Label>Access Code</Label>
+        <Input
+          id="accessCode"
+          type="text"
+          placeholder="Enter access code"
+          name="accessCode"
+          onChange={handleInputChange}
+        />
         <Error>
           {errorMessage !== ''
             ? `Error in ${errorType} field: ${errorMessage}`

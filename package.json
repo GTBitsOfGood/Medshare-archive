@@ -10,7 +10,7 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "install-client": "cd client/ && npm install",
     "install-server": "cd server/ && npm install",
-    "lint": "npx eslint src -c .eslintrc --ext js,jsx"
+    "lint": "npx eslint client/src/ -c .eslintrc --ext js,jsx && npx eslint server/ -c .eslintrc --ext js,jsx --ignore-pattern node_modules/"
   },
   "repository": {
     "type": "git",

@@ -25,6 +25,7 @@ class LoginSignupContainer extends React.Component {
       username: '',
       password: '',
       confirmPassword: '',
+      accessCode: '',
       errorType: '',
       errorMsg: '',
     };
@@ -74,7 +75,13 @@ class LoginSignupContainer extends React.Component {
   handleSubmit(e) {
     if (e) e.preventDefault();
 
-    const { email, username, password, confirmPassword } = this.state;
+    const {
+      email,
+      username,
+      password,
+      confirmPassword,
+      accessCode,
+    } = this.state;
     const { performSignupAction } = this.props;
 
     const user = {
@@ -83,7 +90,12 @@ class LoginSignupContainer extends React.Component {
       Password: password,
     };
 
-    if (!validateEmail(user.Email)) {
+    if (accessCode !== 'This is Medshare!') {
+      this.setState({
+        errorType: 'accessCode',
+        errorMsg: 'Access code incorrect!',
+      });
+    } else if (!validateEmail(user.Email)) {
       this.setState({
         errorType: 'email',
         errorMsg: 'Please enter valid email address!',
@@ -132,7 +144,6 @@ class LoginSignupContainer extends React.Component {
       errorType: undefined,
       errorMsg: '',
     });
-    // console.log(`${name} changed: ${value}`);
   }
 
   switch(componentName) {
