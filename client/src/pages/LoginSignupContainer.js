@@ -27,6 +27,7 @@ class LoginSignupContainer extends React.Component {
       accessCode: '',
       errorType: '',
       errorMsg: '',
+      errorPosition: 0,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -48,6 +49,7 @@ class LoginSignupContainer extends React.Component {
       this.setState({
         errorType: 'username',
         errorMsg: 'Empty Username!',
+        errorPosition: 0,
       });
     } else {
       performLoginAction(user)
@@ -57,6 +59,7 @@ class LoginSignupContainer extends React.Component {
             this.setState({
               errorType: loginResponse.errorType,
               errorMsg: loginResponse.errorMsg,
+              errorPosition: 0,
             });
           } else {
             localStorage.setItem('token', loginResponse.token);
@@ -92,26 +95,31 @@ class LoginSignupContainer extends React.Component {
       this.setState({
         errorType: 'accessCode',
         errorMsg: 'Access code incorrect!',
+        errorPosition: 1,
       });
     } else if (!validateEmail(user.Email)) {
       this.setState({
         errorType: 'email',
         errorMsg: 'Please enter valid email address!',
+        errorPosition: 1,
       });
     } else if (!user.Name.replace(/\s/g, '').length) {
       this.setState({
         errorType: 'username',
         errorMsg: 'Username empty!',
+        errorPosition: 1,
       });
     } else if (user.Password.replace(/\s/g, '').length < 6) {
       this.setState({
         errorType: 'password',
         errorMsg: 'Password is too short; minimum length is 6.',
+        errorPosition: 1,
       });
     } else if (user.Password !== confirmPassword) {
       this.setState({
         errorType: 'password',
         errorMsg: 'Password confirmation does not match password!',
+        errorPosition: 1,
       });
     } else {
       performSignupAction(user)
@@ -121,6 +129,7 @@ class LoginSignupContainer extends React.Component {
             this.setState({
               errorType: signupResponse.errorType,
               errorMsg: signupResponse.errorMsg,
+              errorPosition: 1,
             });
           } else {
             localStorage.setItem('token', signupResponse.token);
@@ -144,7 +153,7 @@ class LoginSignupContainer extends React.Component {
   }
 
   render() {
-    const { errorType, errorMsg } = this.state;
+    const { errorType, errorMsg, errorPosition } = this.state;
     return (
       <div>
         <Login
@@ -154,6 +163,7 @@ class LoginSignupContainer extends React.Component {
           validateEmail={validateEmail}
           errorType={errorType}
           errorMessage={errorMsg}
+          errorPosition={errorPosition}
         />
         <Signup
           switchComponent={this.switch}
@@ -162,6 +172,7 @@ class LoginSignupContainer extends React.Component {
           validateEmail={validateEmail}
           errorType={errorType}
           errorMessage={errorMsg}
+          errorPosition={errorPosition}
         />
       </div>
     );

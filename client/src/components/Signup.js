@@ -56,7 +56,13 @@ const Error = styled.span`
 `;
 
 const Signup = props => {
-  const { handleInputChange, handleSubmit, errorType, errorMessage } = props;
+  const {
+    handleInputChange,
+    handleSubmit,
+    errorType,
+    errorMessage,
+    errorPosition,
+  } = props;
   return (
     <Wrapper>
       <Title>Sign Up</Title>
@@ -99,7 +105,7 @@ const Signup = props => {
           onChange={handleInputChange}
         />
         <Error>
-          {errorMessage !== ''
+          {errorMessage !== '' && errorPosition === 1
             ? `Error in ${errorType} field: ${errorMessage}`
             : null}
         </Error>
@@ -119,6 +125,7 @@ Signup.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   errorType: PropTypes.string,
   errorMessage: PropTypes.string,
+  errorPosition: PropTypes.number.isRequired,
 };
 
 export default Signup;
