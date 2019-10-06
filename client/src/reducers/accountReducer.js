@@ -5,7 +5,7 @@ const initialState = {
   loginReponse: null,
 };
 
-export default function AccountReducer(state = initialState, action) {
+const AccountReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.HANDLE_SIGNUP_RESPONSE:
       return {
@@ -21,4 +21,6 @@ export default function AccountReducer(state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default AccountReducer;

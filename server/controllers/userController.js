@@ -37,49 +37,7 @@ class UserController {
 
     const emailIsValid = VALIDATE_EMAIL(registerData.Email);
 
-    if (emailIsValid) {
-      UserModel.findOne({ Email: registerData.Email }, (e, user) => {
-        if (e) {
-          console.error(
-            `error while searching user email on DB ${registerData.email}`,
-            e,
-          );
-          res.sendStatus(500);
-        } else if (user) {
-          res.json({
-            error: true,
-            errorMsg: 'Email address is already in use.',
-            errorType: 'email',
-          });
-        } else {
-          BCRYPT.hash(registerData.Password, saltRounds, (error, hash) => {
-            if (error) {
-              console.error('error while hashing password', e);
-              res.sendStatus(500);
-            } else {
-              const newUser = new UserModel({
-                Name: registerData.Name,
-                Email: registerData.Email,
-                Password: hash,
-              });
-
-              newUser.save(errorII => {
-                if (errorII) {
-                  console.error('error while saving to mongoDB', e);
-                  res.sendStatus(500);
-                } else {
-                  const response = generateUserObject(newUser);
-                  res.json(response);
-                  // in case if we want the user to be automatically logged in after signup later.
-                  // Sending user info back with new token that can be saved to their local storage
-                  // that can be used for authentication.
-                }
-              });
-            }
-          });
-        }
-      });
-    } else {
+    if (!emailIsValid) {
       console.error('Email address format incorrect');
       res.json({
         error: true,
@@ -87,6 +45,48 @@ class UserController {
         errorType: 'email',
       });
     }
+    UserModel.findOne({ Email: registerData.Email }, (e, user) => {
+      if (e) {
+        console.error(
+          `error while searching user email on DB ${registerData.email}`,
+          e,
+        );
+        res.sendStatus(500);
+      }
+      if (user) {
+        res.json({
+          error: true,
+          errorMsg: 'Email address is already in use.',
+          errorType: 'email',
+        });
+      } else {
+        BCRYPT.hash(registerData.Password, saltRounds, (error, hash) => {
+          if (error) {
+            console.error('error while hashing password', e);
+            res.sendStatus(500);
+          } else {
+            const newUser = new UserModel({
+              Name: registerData.Name,
+              Email: registerData.Email,
+              Password: hash,
+            });
+
+            newUser.save(errorII => {
+              if (errorII) {
+                console.error('error while saving to mongoDB', e);
+                res.sendStatus(500);
+              } else {
+                const response = generateUserObject(newUser);
+                res.json(response);
+                // in case if we want the user to be automatically logged in after signup later.
+                // Sending user info back with new token that can be saved to their local storage
+                // that can be used for authentication.
+              }
+            });
+          }
+        });
+      }
+    });
   }
 
   static login(req, res) {
@@ -96,26 +96,26 @@ class UserController {
       if (e) {
         console.error(e);
         res.sendStatus(500);
-      } else if (user) {
+      } else if (!user) {
+        console.error('Username not found on DB');
+        res.json({
+          error: true,
+          errorMsg: 'Username not found!',
+          errorType: 'username',
+        });
+      } else {
         BCRYPT.compare(loginData.Password, user.Password).then(same => {
-          if (same) {
-            const response = generateUserObject(user);
-            res.json(response);
-          } else {
+          if (!same) {
             console.error('Password entered is incorrect!');
             res.json({
               error: true,
               errorMsg: 'Password entered is incorrect!',
               errorType: 'password',
             });
+          } else {
+            const response = generateUserObject(user);
+            res.json(response);
           }
-        });
-      } else {
-        console.error('Username not found on DB');
-        res.json({
-          error: true,
-          errorMsg: 'Username not found!',
-          errorType: 'username',
         });
       }
     });

@@ -2,11 +2,11 @@ import axios from 'axios';
 import types from './AccountActionTypes';
 import url from '../helpers/helperURL';
 
-export function loginSuccess(response) {
+const loginSuccess = response => {
   return dispatch => {
     dispatch({ payload: response, type: types.HANDLE_LOGIN_RESPONSE });
   };
-}
+};
 
 const performLogin = payload => {
   return dispatch => {

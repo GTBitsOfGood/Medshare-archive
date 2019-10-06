@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import combineState from './combineReducer';
 
-export default function configureReduxStore() {
+const configureReduxStore = () => {
   return createStore(
     combineState,
     compose(
@@ -10,4 +10,5 @@ export default function configureReduxStore() {
       window.devToolsExtension ? window.devToolsExtension() : f => f,
     ),
   );
-}
+};
+export default configureReduxStore;
