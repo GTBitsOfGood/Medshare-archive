@@ -56,13 +56,7 @@ const Error = styled.span`
 `;
 
 const Signup = props => {
-  const {
-    switchComponent,
-    handleInputChange,
-    handleSubmit,
-    errorType,
-    errorMessage,
-  } = props;
+  const { handleInputChange, handleSubmit, errorType, errorMessage } = props;
   return (
     <Wrapper>
       <Title>Sign Up</Title>
@@ -110,13 +104,6 @@ const Signup = props => {
             : null}
         </Error>
         <Button onClick={handleSubmit}>Sign Up</Button>
-        <Button
-          onClick={() => {
-            switchComponent('Login');
-          }}
-        >
-          Have an account already? Sign in here.
-        </Button>
       </form>
     </Wrapper>
   );
@@ -128,7 +115,6 @@ Signup.defaultProps = {
 };
 
 Signup.propTypes = {
-  switchComponent: PropTypes.func.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   errorType: PropTypes.string,

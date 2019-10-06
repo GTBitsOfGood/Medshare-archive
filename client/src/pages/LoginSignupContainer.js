@@ -20,7 +20,6 @@ class LoginSignupContainer extends React.Component {
     super(props);
 
     this.state = {
-      displayTable: 'SignUp',
       email: '',
       username: '',
       password: '',
@@ -29,7 +28,6 @@ class LoginSignupContainer extends React.Component {
       errorType: '',
       errorMsg: '',
     };
-    this.switch = this.switch.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
@@ -82,7 +80,7 @@ class LoginSignupContainer extends React.Component {
       confirmPassword,
       accessCode,
     } = this.state;
-    const { performSignupAction } = this.props;
+    const { performSignupAction, history } = this.props;
 
     const user = {
       Email: email,
@@ -125,9 +123,8 @@ class LoginSignupContainer extends React.Component {
               errorMsg: signupResponse.errorMsg,
             });
           } else {
-            this.setState({
-              displayTable: 'Login',
-            });
+            localStorage.setItem('token', signupResponse.token);
+            history.push(`/account_portal`);
           }
         })
         .catch(err => {
@@ -146,26 +143,10 @@ class LoginSignupContainer extends React.Component {
     });
   }
 
-  switch(componentName) {
-    this.setState({
-      displayTable: componentName,
-    });
-  }
-
   render() {
-    const { errorType, errorMsg, displayTable } = this.state;
-    const components = {
-      SignUp: (
-        <Signup
-          switchComponent={this.switch}
-          handleInputChange={this.handleInputChange}
-          handleSubmit={this.handleSubmit}
-          validateEmail={validateEmail}
-          errorType={errorType}
-          errorMessage={errorMsg}
-        />
-      ),
-      Login: (
+    const { errorType, errorMsg } = this.state;
+    return (
+      <div>
         <Login
           switchComponent={this.switch}
           handleInputChange={this.handleInputChange}
@@ -174,9 +155,16 @@ class LoginSignupContainer extends React.Component {
           errorType={errorType}
           errorMessage={errorMsg}
         />
-      ),
-    };
-    return <div>{components[displayTable]}</div>;
+        <Signup
+          switchComponent={this.switch}
+          handleInputChange={this.handleInputChange}
+          handleSubmit={this.handleSubmit}
+          validateEmail={validateEmail}
+          errorType={errorType}
+          errorMessage={errorMsg}
+        />
+      </div>
+    );
   }
 }
 
