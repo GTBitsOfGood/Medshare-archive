@@ -103,13 +103,13 @@ class LoginSignupContainer extends React.Component {
         errorMsg: 'Please enter valid email address!',
         errorPosition: 1,
       });
-    } else if (!user.Name.replace(/\s/g, '').length) {
+    } else if (!user.Name.trim().length) {
       this.setState({
         errorType: 'username',
         errorMsg: 'Username empty!',
         errorPosition: 1,
       });
-    } else if (user.Password.replace(/\s/g, '').length < 6) {
+    } else if (user.Password.trim().length < 6) {
       this.setState({
         errorType: 'password',
         errorMsg: 'Password is too short; minimum length is 6.',

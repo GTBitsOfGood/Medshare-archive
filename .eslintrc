@@ -9,7 +9,8 @@
       }
     ],
     "prettier/prettier": "error",
-    "max-len": ["error", 120] // lines can be 120 characters long before they should break
+    "max-len": ["error", 120], // lines can be 120 characters long before they should break
+    "react/jsx-props-no-spreading": "off"
   },
   "env": {
     "browser": true
