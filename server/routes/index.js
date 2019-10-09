@@ -52,4 +52,14 @@ router.get('/autocomplete', async (req, res) => {
   }
 });
 
+router.get('/reset', async (req, res) => {
+  const r = await searchController.resetProductCount();
+  res.send(r);
+});
+
+router.get('/test', async (req, res) => {
+  const r = await searchController.testProductCounter();
+  res.send(JSON.stringify(r.length));
+});
+
 module.exports = router;
