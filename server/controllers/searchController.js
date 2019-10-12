@@ -28,29 +28,26 @@ searchController.fuzzyQueryProducts = async queries => {
     });
 };
 
-searchController.autocompleteTerms = (products, q, numOfTerms = 7) => {
-  const query = q.toLowerCase();
-  const counter = {};
-  // eslint-disable-next-line no-useless-escape, prettier/prettier
-  const separators = new RegExp([' ', '/', '-', '&', '\\\*', '"', ',', '\\\\'].join('|'), 'g');
+/*
+  Get all words from ProductCoutn that starts with the given query
+  Sorted by the number of the times the word occurs
 
-  products.forEach(product => {
-    fieldsOfInterest.forEach(field => {
-      const valueString = JSON.stringify(product.toObject()[field]);
-      valueString.split(separators).forEach(word => {
-        const formattedWord = word.trim().toLowerCase();
-        if (formattedWord.toLowerCase().startsWith(query)) {
-          counter[formattedWord] = (counter[formattedWord] || 0) + 1;
-        }
-      });
-    });
-  });
-  const counterArray = Object.entries(counter);
-  counterArray.sort((a, b) => {
-    return b[1] - a[1];
-  });
+  Arg:
+    q (str): prefix query word
+    numOfTerms (optional): number of results to be returned
 
-  return counterArray.slice(0, numOfTerms).map(word => word[0]);
+  Returns:
+    array of top n possible terms
+ */
+searchController.autocompleteTerms = async (q, numOfTerms = 7) => {
+  const query = q.trim().toLowerCase();
+
+  const wordCounts = await ProductCount.find({
+    Word: { $regex: new RegExp(`^${query}`) },
+  })
+    .sort({ Count: -1 })
+    .limit(numOfTerms);
+  return wordCounts;
 };
 
 /*

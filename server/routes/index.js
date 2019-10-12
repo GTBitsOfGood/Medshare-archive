@@ -22,6 +22,9 @@ router.get('/', (req, res) => {
  */
 router.get('/search', async (req, res) => {
   const { q } = req.query;
+  if (q === null || typeof q !== 'string') {
+    return res.status(400).send('Query word must exist!');
+  }
   const queries = q.split(' ');
   try {
     const products = await searchController.fuzzyQueryProducts(queries);
@@ -42,10 +45,12 @@ router.get('/search', async (req, res) => {
  */
 router.get('/autocomplete', async (req, res) => {
   const { q } = req.query;
+  if (q === null || typeof q !== 'string') {
+    return res.status(400).send('Query word must exist!');
+  }
   const query = q.split(' ').pop();
   try {
-    const products = await searchController.fuzzyQueryProducts([query]);
-    const completes = searchController.autocompleteTerms(products, q);
+    const completes = await searchController.autocompleteTerms(query);
     return res.send(completes);
   } catch (err) {
     return res.status(500).send(err);
