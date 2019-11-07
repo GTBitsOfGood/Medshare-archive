@@ -14,13 +14,21 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const Wrapper = styled.section`
+  float: left;
+  margin: 7px auto;
+  border: none;
+  border-radius: 5px;
+  padding: 2px 5px;
+`;
+
 const SideButtonPanel = props => {
   const { handleAddEdit, handleFilter } = props;
   return (
-    <div>
+    <Wrapper>
       <Button onClick={handleAddEdit}>Add/Edit</Button>
       <Button onClick={handleFilter}>Filter</Button>
-    </div>
+    </Wrapper>
   );
 };
 

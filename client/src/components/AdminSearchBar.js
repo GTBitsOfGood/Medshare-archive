@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const Input = styled.input`
   display: block;
-  margin: 7px auto;
+  margin: 21px auto;
   width: 60%;
   background-color: #bdd8f2;
   border: none;
