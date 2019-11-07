@@ -4,7 +4,8 @@ import { withRouter } from 'react-router';
 // eslint-disable-next-line no-unused-vars
 import PropTypes from 'prop-types';
 
-import LoginSuccess from '../components/LoginSuccess';
+// import LoginSuccess from '../components/LoginSuccess';
+import SideButtonPanel from '../components/SideButtonPanel';
 
 // import actions here
 
@@ -13,12 +14,27 @@ class AccountPortalContainer extends React.Component {
     super(props);
 
     this.state = {};
+    this.handleAddEdit = this.handleAddEdit.bind(this);
+    this.handleFilter = this.handleFilter.bind(this);
+  }
+
+  handleAddEdit(e) {
+    if (e) e.preventDefault();
+    this.setState();
+  }
+
+  handleFilter(e) {
+    if (e) e.preventDefault();
+    this.setState();
   }
 
   render() {
     return (
       <div>
-        <LoginSuccess />
+        <SideButtonPanel
+          handleAddEdit={this.handleAddEdit}
+          handleFilter={this.handleFilter}
+        />
       </div>
     );
   }

@@ -63,7 +63,7 @@ class LoginSignupContainer extends React.Component {
             });
           } else {
             localStorage.setItem('token', loginResponse.token);
-            console.log('Login Success!');
+            console.log('SideButtonPanel Success!');
             history.push(`/account_portal`);
           }
         })
