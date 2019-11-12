@@ -32,7 +32,6 @@ adipisicing elit. Ullam ut molestiae neque maxime
 praesentium fuga culpa, eos dolore? Aperiam fugit 
 ducimus ipsa tempora enim, porro ab molestiae id ea 
 repudiandae.`,
-        edit: false,
       },
     };
     this.handleAdd = this.handleAdd.bind(this);
@@ -40,17 +39,42 @@ repudiandae.`,
     this.handleFilter = this.handleFilter.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleEditFinish = this.handleEditFinish.bind(this);
     this.displayLabel = this.displayLabel.bind(this);
   }
 
   handleAdd(e) {
     if (e) e.preventDefault();
-    this.setState();
+    this.setState({
+      editButton: false,
+      displayResult: false,
+      labelData: {
+        ProductName: 'Enter Name Here',
+        ProductRef: 'Enter Reference Here',
+        CategoryName: 'Enter Category Name Here',
+        SubCategory: 'Enter SubCategory Name Here',
+        UnitMeasureName: 'Enter Unit of Measure Here',
+        description: `Lorem ipsum dolor sit amet consectetur 
+adipisicing elit. Ullam ut molestiae neque maxime 
+praesentium fuga culpa, eos dolore? Aperiam fugit 
+ducimus ipsa tempora enim, porro ab molestiae id ea 
+repudiandae.`,
+      },
+      editLabel: true,
+    });
   }
 
   handleEdit(e) {
     if (e) e.preventDefault();
-    this.setState();
+    this.setState({ editLabel: true });
+  }
+
+  handleEditFinish(e) {
+    if (e) e.preventDefault();
+    this.setState({
+      editButton: false,
+      displayResult: true,
+    });
   }
 
   handleFilter(e) {
@@ -75,7 +99,19 @@ repudiandae.`,
     this.setState({
       editButton: true,
       displayResult: false,
-      labelData: d,
+      editLabel: false,
+      labelData: {
+        ProductName: 'Kitten',
+        ProductRef: 'YEET',
+        CategoryName: 'Cutie pies',
+        SubCategory: 'Cutie Queen',
+        UnitMeasureName: 'Whole',
+        description: `Lorem ipsum dolor sit amet consectetur 
+adipisicing elit. Ullam ut molestiae neque maxime 
+praesentium fuga culpa, eos dolore? Aperiam fugit 
+ducimus ipsa tempora enim, porro ab molestiae id ea 
+repudiandae.`,
+      },
     });
   }
 
@@ -116,8 +152,12 @@ repudiandae.`,
           isEdit={editButton}
         />
         <AdminSearchBar handleInputChange={this.handleChange} />
-        {editButton ? (
-          <LabelEdit labelData={labelData} edit={editLabel} />
+        {!displayResult ? (
+          <LabelEdit
+            labelData={labelData}
+            edit={editLabel}
+            handleEditFinish={this.handleEditFinish}
+          />
         ) : null}
         {displayResult ? (
           <AdminItemList data={testData} displayLabel={this.displayLabel} />

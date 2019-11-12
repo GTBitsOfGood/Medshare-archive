@@ -39,9 +39,7 @@ const LabelButton = styled.button`
   float: right;
   display: block;
   position: relative;
-  top: 0;
-  right: 0;
-  width: 20px;
+  width: 50px;
   background-color: #4caf50;
   border: none;
   border-radius: 5px;
@@ -51,7 +49,7 @@ const LabelButton = styled.button`
 `;
 
 const LabelEdit = props => {
-  const { labelData } = props;
+  const { labelData, edit, handleEditFinish } = props;
   const {
     ProductName,
     ProductRef,
@@ -59,8 +57,8 @@ const LabelEdit = props => {
     SubCategory,
     UnitMeasureName,
     description,
-    edit,
   } = labelData;
+  console.log(edit);
   return (
     <ItemLabel>
       <Flex>
@@ -162,6 +160,11 @@ const LabelEdit = props => {
           )}
         </div>
       </div>
+      {edit ? (
+        <LabelButton onClick={handleEditFinish}> Done </LabelButton>
+      ) : (
+        description
+      )}
     </ItemLabel>
   );
 };
@@ -174,8 +177,9 @@ LabelEdit.propTypes = {
     SubCategory: PropTypes.string.isRequired,
     UnitMeasureName: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    edit: PropTypes.bool.isRequired,
   }).isRequired,
+  edit: PropTypes.bool.isRequired,
+  handleEditFinish: PropTypes.func.isRequired,
 };
 
 export default LabelEdit;
