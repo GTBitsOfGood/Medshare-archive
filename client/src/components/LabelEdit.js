@@ -6,7 +6,7 @@ const ItemLabel = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
-  margin: 20px;
+  margin: 20px auto;
   outline: black 3px solid;
   width: 520px;
 `;
@@ -33,6 +33,21 @@ const LabelDetails = styled.div`
   td {
     padding-right: 45px;
   }
+`;
+
+const LabelButton = styled.button`
+  float: right;
+  display: block;
+  position: relative;
+  top: 0;
+  right: 0;
+  width: 20px;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
 `;
 
 const LabelEdit = props => {

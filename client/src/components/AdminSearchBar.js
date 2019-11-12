@@ -19,14 +19,15 @@ const Input = styled.input`
 `;
 
 const AdminSearchBar = props => {
-  const { handleInputChange } = props;
+  const { handleInputChange, handleSearch } = props;
   return (
     <div>
       <Input
         type="text"
         placeholder="Search For Product"
-        name="searchKey"
+        name="searchInput"
         onChange={handleInputChange}
+        onSubmit={handleSearch}
       />
     </div>
   );
@@ -34,6 +35,7 @@ const AdminSearchBar = props => {
 
 AdminSearchBar.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
 };
 
 export default AdminSearchBar;
