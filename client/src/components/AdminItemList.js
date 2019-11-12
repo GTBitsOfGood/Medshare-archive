@@ -23,7 +23,7 @@ const Button = styled.button`
 `;
 
 const AdminItemList = props => {
-  const { data } = props;
+  const { data, displayLabel } = props;
   return (
     <div>
       <ItemList>
@@ -35,7 +35,15 @@ const AdminItemList = props => {
             }
             return display.push(`${Key}: ${data[a][Key]}   `);
           });
-          return <Button>{display}</Button>;
+          return (
+            <Button
+              onClick={() => {
+                displayLabel(data[a]);
+              }}
+            >
+              {display}
+            </Button>
+          );
         })}
       </ItemList>
     </div>
@@ -44,6 +52,7 @@ const AdminItemList = props => {
 
 AdminItemList.propTypes = {
   data: PropTypes.shape.isRequired,
+  displayLabel: PropTypes.func.isRequired,
 };
 
 export default AdminItemList;

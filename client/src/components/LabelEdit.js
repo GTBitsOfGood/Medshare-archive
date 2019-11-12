@@ -53,11 +53,11 @@ const LabelButton = styled.button`
 const LabelEdit = props => {
   const { labelData } = props;
   const {
-    name,
-    productReference,
-    category,
-    subcategory,
-    uom,
+    ProductName,
+    ProductRef,
+    CategoryName,
+    SubCategory,
+    UnitMeasureName,
     description,
     edit,
   } = labelData;
@@ -69,12 +69,12 @@ const LabelEdit = props => {
             {edit ? (
               <LabelInput
                 type="text"
-                placeholder={name}
-                defaultValue={name}
+                placeholder={ProductName}
+                defaultValue={ProductName}
                 name="name"
               />
             ) : (
-              name
+              ProductName
             )}
           </LabelName>
           <LabelDetails>
@@ -89,24 +89,24 @@ const LabelEdit = props => {
                     {edit ? (
                       <input
                         type="text"
-                        placeholder={productReference}
-                        defaultValue={productReference}
+                        placeholder={ProductRef}
+                        defaultValue={ProductRef}
                         name="productReference"
                       />
                     ) : (
-                      productReference
+                      ProductRef
                     )}
                   </td>
                   <td>
                     {edit ? (
                       <input
                         type="text"
-                        placeholder={category}
-                        defaultValue={category}
+                        placeholder={CategoryName}
+                        defaultValue={CategoryName}
                         name="category"
                       />
                     ) : (
-                      category
+                      CategoryName
                     )}
                   </td>
                 </tr>
@@ -119,24 +119,24 @@ const LabelEdit = props => {
                     {edit ? (
                       <input
                         type="text"
-                        placeholder={subcategory}
-                        defaultValue={subcategory}
+                        placeholder={SubCategory}
+                        defaultValue={SubCategory}
                         name="subcategory"
                       />
                     ) : (
-                      subcategory
+                      SubCategory
                     )}
                   </td>
                   <td>
                     {edit ? (
                       <input
                         type="text"
-                        placeholder={uom}
-                        defaultValue={uom}
+                        placeholder={UnitMeasureName}
+                        defaultValue={UnitMeasureName}
                         name="uom"
                       />
                     ) : (
-                      uom
+                      UnitMeasureName
                     )}
                   </td>
                 </tr>
@@ -168,11 +168,11 @@ const LabelEdit = props => {
 
 LabelEdit.propTypes = {
   labelData: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    productReference: PropTypes.string.isRequired,
-    category: PropTypes.string.isRequired,
-    subcategory: PropTypes.string.isRequired,
-    uom: PropTypes.string.isRequired,
+    ProductName: PropTypes.string.isRequired,
+    ProductRef: PropTypes.string.isRequired,
+    CategoryName: PropTypes.string.isRequired,
+    SubCategory: PropTypes.string.isRequired,
+    UnitMeasureName: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     edit: PropTypes.bool.isRequired,
   }).isRequired,

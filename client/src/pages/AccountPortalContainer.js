@@ -21,12 +21,26 @@ class AccountPortalContainer extends React.Component {
       editButton: false,
       searchInput: '',
       displayResult: true,
+      labelData: {
+        ProductName: 'Kitten',
+        ProductRef: 'YEET',
+        CategoryName: 'Cutie pies',
+        SubCategory: 'Cutie Queen',
+        UnitMeasureName: 'Whole',
+        description: `Lorem ipsum dolor sit amet consectetur 
+adipisicing elit. Ullam ut molestiae neque maxime 
+praesentium fuga culpa, eos dolore? Aperiam fugit 
+ducimus ipsa tempora enim, porro ab molestiae id ea 
+repudiandae.`,
+        edit: false,
+      },
     };
     this.handleAdd = this.handleAdd.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.displayLabel = this.displayLabel.bind(this);
   }
 
   handleAdd(e) {
@@ -57,8 +71,16 @@ class AccountPortalContainer extends React.Component {
     this.setState();
   }
 
+  displayLabel(d) {
+    this.setState({
+      editButton: true,
+      displayResult: false,
+      labelData: d,
+    });
+  }
+
   render() {
-    const { editLabel, editButton, displayResult } = this.state;
+    const { editLabel, editButton, displayResult, labelData } = this.state;
     const testData = [
       {
         _id: '5d7e9aec5bf584261d37c0ca',
@@ -95,23 +117,11 @@ class AccountPortalContainer extends React.Component {
         />
         <AdminSearchBar handleInputChange={this.handleChange} />
         {editButton ? (
-          <LabelEdit
-            labelData={{
-              name: 'Kitten',
-              productReference: 'YEET',
-              category: 'Cutie pies',
-              subcategory: 'Cutie Queen',
-              uom: 'Whole',
-              description: `Lorem ipsum dolor sit amet consectetur 
-adipisicing elit. Ullam ut molestiae neque maxime 
-praesentium fuga culpa, eos dolore? Aperiam fugit 
-ducimus ipsa tempora enim, porro ab molestiae id ea 
-repudiandae.`,
-              edit: editLabel,
-            }}
-          />
+          <LabelEdit labelData={labelData} edit={editLabel} />
         ) : null}
-        {displayResult ? <AdminItemList data={testData} /> : null}
+        {displayResult ? (
+          <AdminItemList data={testData} displayLabel={this.displayLabel} />
+        ) : null}
       </div>
     );
   }
