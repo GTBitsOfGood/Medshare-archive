@@ -10,7 +10,9 @@ import AdminSearchBar from '../components/AdminSearchBar';
 import LabelEdit from '../components/LabelEdit';
 import AdminItemList from '../components/AdminItemList';
 
-// import actions here
+import performAdd from '../actions/performAdd';
+import performEdit from '../actions/performEdit';
+import performSearch from '../actions/performSearch';
 
 class AccountPortalContainer extends React.Component {
   constructor(props) {
@@ -100,18 +102,7 @@ repudiandae.`,
       editButton: true,
       displayResult: false,
       editLabel: false,
-      labelData: {
-        ProductName: 'Kitten',
-        ProductRef: 'YEET',
-        CategoryName: 'Cutie pies',
-        SubCategory: 'Cutie Queen',
-        UnitMeasureName: 'Whole',
-        description: `Lorem ipsum dolor sit amet consectetur 
-adipisicing elit. Ullam ut molestiae neque maxime 
-praesentium fuga culpa, eos dolore? Aperiam fugit 
-ducimus ipsa tempora enim, porro ab molestiae id ea 
-repudiandae.`,
-      },
+      labelData: d,
     });
   }
 
