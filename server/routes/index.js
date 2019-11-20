@@ -23,6 +23,7 @@ router.get('/', (req, res) => {
 router.get('/search', async (req, res) => {
   const { q } = req.query;
   if (q === null || typeof q !== 'string') {
+    console.log("error" + err);
     return res.status(400).send('Query word must exist!');
   }
   const queries = q.split(' ');

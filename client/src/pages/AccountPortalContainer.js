@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-// eslint-disable-next-line no-unused-vars
 import PropTypes from 'prop-types';
 
 // import LoginSuccess from '../components/LoginSuccess';
@@ -13,6 +12,10 @@ import AdminItemList from '../components/AdminItemList';
 import performAdd from '../actions/performAdd';
 import performEdit from '../actions/performEdit';
 import performSearch from '../actions/performSearch';
+
+const isEmpty = obj => {
+  return !obj || Object.keys(obj).length === 0;
+};
 
 class AccountPortalContainer extends React.Component {
   constructor(props) {
@@ -35,6 +38,9 @@ praesentium fuga culpa, eos dolore? Aperiam fugit
 ducimus ipsa tempora enim, porro ab molestiae id ea 
 repudiandae.`,
       },
+      errorType: '',
+      errorMssg: '',
+      searchResults: {},
     };
     this.handleAdd = this.handleAdd.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
@@ -94,7 +100,34 @@ repudiandae.`,
 
   handleSearch(e) {
     if (e) e.preventDefault();
-    this.setState();
+    const { searchInput } = this.state;
+
+    const { performSearchAction } = this.props;
+
+    if (searchInput.length < 1) {
+      this.setState({
+        errorType: 'searchInput',
+        errorMsg: 'Empty Search Input!',
+      });
+    } else {
+      performSearchAction(searchInput)
+        .then(() => {
+          const { searchResponse } = this.props;
+          if (isEmpty(searchResponse)) {
+            this.setState({
+              errorType: 'searchInput',
+              errorMsg: 'Search Response Empty!',
+            });
+          } else {
+            this.setState({
+              searchResults: searchResponse,
+            });
+          }
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
   }
 
   displayLabel(d) {
@@ -107,8 +140,14 @@ repudiandae.`,
   }
 
   render() {
-    const { editLabel, editButton, displayResult, labelData } = this.state;
-    const testData = [
+    const {
+      editLabel,
+      editButton,
+      displayResult,
+      labelData,
+      searchResults,
+    } = this.state;
+    /*const testData = [
       {
         _id: '5d7e9aec5bf584261d37c0ca',
         ProductID: '417',
@@ -133,7 +172,7 @@ repudiandae.`,
         CategoryName: 'Bio Med',
         SubCategory: 'Feeding',
       },
-    ];
+    ];*/
     return (
       <div>
         <SideButtonPanel
@@ -142,7 +181,10 @@ repudiandae.`,
           handleFilter={this.handleFilter}
           isEdit={editButton}
         />
-        <AdminSearchBar handleInputChange={this.handleChange} />
+        <AdminSearchBar
+          handleInputChange={this.handleChange}
+          handleSearch={this.handleSearch}
+        />
         {!displayResult ? (
           <LabelEdit
             labelData={labelData}
@@ -151,7 +193,10 @@ repudiandae.`,
           />
         ) : null}
         {displayResult ? (
-          <AdminItemList data={testData} displayLabel={this.displayLabel} />
+          <AdminItemList
+            data={searchResults}
+            displayLabel={this.displayLabel}
+          />
         ) : null}
       </div>
     );
@@ -160,17 +205,45 @@ repudiandae.`,
 
 AccountPortalContainer.defaultProps = {};
 
-// eslint-disable-next-line no-unused-vars
 const mapStateToProps = state => {
-  return {};
+  return {
+    searchResponse: state.AdminReducer.searchResponse,
+    addResponse: state.AdminReducer.addResponse,
+    editResponse: state.AdminReducer.editResponse,
+  };
 };
 
-// eslint-disable-next-line no-unused-vars
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    performSearchAction: payload => dispatch(performSearch(payload)),
+    performAddAction: payload => dispatch(performAdd(payload)),
+    performEditAction: payload => dispatch(performEdit(payload)),
+  };
 };
 
-AccountPortalContainer.propTypes = {};
+AccountPortalContainer.propTypes = {
+  performSearchAction: PropTypes.func.isRequired,
+  performAddAction: PropTypes.func.isRequired,
+  performEditAction: PropTypes.func.isRequired,
+  searchResponse: PropTypes.shape({
+    token: PropTypes.string,
+    error: PropTypes.bool,
+    errorMsg: PropTypes.string,
+    errorType: PropTypes.string,
+  }),
+  addResponse: PropTypes.shape({
+    token: PropTypes.string,
+    error: PropTypes.bool,
+    errorMsg: PropTypes.string,
+    errorType: PropTypes.string,
+  }),
+  editResponse: PropTypes.shape({
+    token: PropTypes.string,
+    error: PropTypes.bool,
+    errorMsg: PropTypes.string,
+    errorType: PropTypes.string,
+  }),
+};
 
 export default withRouter(
   connect(

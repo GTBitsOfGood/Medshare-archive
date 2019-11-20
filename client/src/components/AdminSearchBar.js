@@ -18,17 +18,26 @@ const Input = styled.input`
   }
 `;
 
+const SubmitInput = styled.input`
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+`;
+
 const AdminSearchBar = props => {
   const { handleInputChange, handleSearch } = props;
   return (
     <div>
-      <Input
-        type="text"
-        placeholder="Search For Product"
-        name="searchInput"
-        onChange={handleInputChange}
-        onSubmit={handleSearch}
-      />
+      <form onSubmit={handleSearch}>
+        <Input
+          type="text"
+          placeholder="Search For Product"
+          name="searchInput"
+          onChange={handleInputChange}
+        />
+        <SubmitInput type="submit" tabIndex="-1" />
+      </form>
     </div>
   );
 };

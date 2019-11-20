@@ -42,8 +42,8 @@ app.get('/*', (req, res) => {
 function handleError(err, req, res) {
   const statusCode = err.statusCode ? err.statusCode : 500;
   const message = err.message ? err.message : 'Something broke!';
-  console.error(err.stack);
-  res.status(statusCode).send(message);
+  console.error(err.message);
+  return res.status(statusCode).send(message);
 }
 
 app.use(handleError);

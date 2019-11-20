@@ -10,9 +10,9 @@ const searchSuccess = response => {
 
 const performSearch = payload => {
   return dispatch => {
-    return axios
-      .post(`${url}/api/search`, payload)
-      .then(response => dispatch(searchSuccess(response.data)));
+    return axios.get(`${url}/api/search?q=${payload}`).then(response => {
+      dispatch(searchSuccess(response.data));
+    });
   };
 };
 
