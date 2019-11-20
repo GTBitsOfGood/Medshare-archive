@@ -44,6 +44,7 @@ repudiandae.`,
     };
     this.handleAdd = this.handleAdd.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.handleBack = this.handleBack.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -85,6 +86,14 @@ repudiandae.`,
     });
   }
 
+  handleBack(e) {
+    if (e) e.preventDefault();
+    this.setState({
+      editButton: false,
+      displayResult: true,
+    });
+  }
+
   handleFilter(e) {
     if (e) e.preventDefault();
     this.setState();
@@ -104,6 +113,10 @@ repudiandae.`,
 
     const { performSearchAction } = this.props;
 
+    this.setState({
+      editLabel: false,
+      displayResult: true,
+    });
     if (searchInput.length < 1) {
       this.setState({
         errorType: 'searchInput',
@@ -147,39 +160,15 @@ repudiandae.`,
       labelData,
       searchResults,
     } = this.state;
-    /*const testData = [
-      {
-        _id: '5d7e9aec5bf584261d37c0ca',
-        ProductID: '417',
-        ProductRef: '700417',
-        ProductName: 'SYRINGES, IRRIGATION PISTON SYRINGE,60CC',
-        ProductCatID: '7',
-        StorageID: '**NONE**',
-        ClassID: '',
-        UnitMeasureName: 'BOX',
-        CategoryName: 'World Vision',
-        SubCategory: 'Syringes',
-      },
-      {
-        _id: '5d7e9aec5bf584261d37c1b4',
-        ProductID: '5008',
-        ProductRef: '705008',
-        ProductName: 'Infusion Pumps, Syringe, Syringe Infusion Pump',
-        ProductCatID: '5',
-        StorageID: '**NONE**',
-        ClassID: '',
-        UnitMeasureName: 'BOX',
-        CategoryName: 'Bio Med',
-        SubCategory: 'Feeding',
-      },
-    ];*/
     return (
       <div>
         <SideButtonPanel
           handleAdd={this.handleAdd}
           handleEdit={this.handleEdit}
+          handleBack={this.handleBack}
           handleFilter={this.handleFilter}
           isEdit={editButton}
+          isLabel={!displayResult}
         />
         <AdminSearchBar
           handleInputChange={this.handleChange}

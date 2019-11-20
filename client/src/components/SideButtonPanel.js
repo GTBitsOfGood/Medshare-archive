@@ -23,7 +23,14 @@ const Wrapper = styled.section`
 `;
 
 const SideButtonPanel = props => {
-  const { handleAdd, handleEdit, handleFilter, isEdit } = props;
+  const {
+    handleAdd,
+    handleEdit,
+    handleFilter,
+    isEdit,
+    isLabel,
+    handleBack,
+  } = props;
   return (
     <Wrapper>
       {isEdit ? (
@@ -31,7 +38,12 @@ const SideButtonPanel = props => {
       ) : (
         <Button onClick={handleAdd}>Add</Button>
       )}
-      <Button onClick={handleFilter}>Filter</Button>
+      {isLabel ? (
+        <Button onClick={handleBack}>Back</Button>
+      ) : (
+        null
+      )}
+      {/*<Button onClick={handleFilter}>Filter</Button>*/}
     </Wrapper>
   );
 };
@@ -39,7 +51,9 @@ const SideButtonPanel = props => {
 SideButtonPanel.propTypes = {
   handleAdd: PropTypes.func.isRequired,
   handleEdit: PropTypes.func.isRequired,
+  handleBack: PropTypes.func.isRequired,
   isEdit: PropTypes.bool.isRequired,
+  isLabel: PropTypes.bool.isRequired,
   handleFilter: PropTypes.func.isRequired,
 };
 

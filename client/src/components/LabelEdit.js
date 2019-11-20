@@ -58,7 +58,6 @@ const LabelEdit = props => {
     UnitMeasureName,
     description,
   } = labelData;
-  console.log(edit);
   return (
     <ItemLabel>
       <Flex>
@@ -144,7 +143,7 @@ const LabelEdit = props => {
         </div>
       </Flex>
       <div>
-        <h4>Description</h4>
+        {/*<h4>Description</h4>
         <div>
           {edit ? (
             <textarea
@@ -158,7 +157,7 @@ const LabelEdit = props => {
           ) : (
             description
           )}
-        </div>
+        </div>*/}
       </div>
       {edit ? (
         <LabelButton onClick={handleEditFinish}> Done </LabelButton>
