@@ -25,7 +25,8 @@
   "dependencies": {
     "concurrently": "^4.1.2",
     "nodemon": "^1.19.2",
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "server": "file:server"
   },
   "devDependencies": {
     "eslint": "^6.1.0",

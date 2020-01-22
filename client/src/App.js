@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LoginSignupContainer from './pages/LoginSignupContainer';
 import AccountPortalContainer from './pages/AccountPortalContainer';
 import Label from './components/Label';
+import Home from './components/home/Home';
 
 function App() {
   const labelData = {
@@ -29,9 +30,10 @@ repudiandae.`,
           path="/label"
           render={props => <Label {...props} labelData={labelData} />}
         />
+        <Route path="/search" component={Home} />
         {/* temporary rendering / route to login/signup page; will render search
         engine later */}
-        <Route path="/" component={LoginSignupContainer} />
+        <Route path="/" component={Home} />
       </Switch>
     </BrowserRouter>
   );

@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=EB+Garamond:400,700,800&display=swap');
+
+body {
+  font-family: 'EB Garamond', serif;
+}
+
 .App {
   text-align: center;
 }
@@ -30,4 +36,74 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.bar {
+  height: 0.4rem;
+  background: linear-gradient(90deg, rgba(99,150,179,1) 0%, rgba(212,165,53,1) 43%, rgba(106,139,74,1) 100%);
+}
+
+.title {
+  text-align: center;
+}
+
+.title h1 {
+  font-size: 3rem;
+  font-weight: 900;
+}
+
+.filters {
+  display: flex;
+}
+
+.filter {
+  background: red;
+  color: black;
+  border-radius: 10px;
+  padding: 0 10px;
+  margin: 0 5px;
+}
+
+.filter i {
+  cursor: pointer;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+}
+
+.search-wrap {
+  width: 55%;
+}
+
+.search-form {
+  padding: 16px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.search-btn {
+  position: relative;
+  top: -37px;
+  left: 100%;
+  display: inline-block;
+}
+
+.search-btn:hover {
+  color: rgb(245, 66, 66);
+}
+
+.suggestion {
+  margin: 0px;
+  padding: 10px;
+  cursor: pointer;
+  width: 102%;
+}
+
+.suggestion:hover {
+  background: rgb(210, 210, 210);
 }
